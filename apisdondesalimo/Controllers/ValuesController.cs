@@ -21,9 +21,9 @@ namespace apisdondesalimo.Controllers
             cliente1.documento = 36948269;
             cliente1.email = "Lpopowsky@gmail.com";
             cliente1.idCliente = 1;
-            cliente1.nickname = "lucseat";
+            cliente1.apodo = "lucseat";
             cliente1.nombre = "lucas";
-            cliente1.password = "pepe";
+            cliente1.contrasena = "pepe";
             cliente1.telefono = 12345678;
             cliente1.tipoDocumento = "DNI";
             cliente1.usuario = "Lucseat";

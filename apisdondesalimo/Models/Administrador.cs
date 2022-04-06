@@ -9,7 +9,8 @@ namespace apisdondesalimo.Models
     {
         public int? idAdministrador { get; set; }
         public string usuario { get; set; }
-        public string contraseña { get; set; }
+        //se cambio contrasenia
+        public string contrasenia { get; set; }
         public string  permisos { get; set; }
     }
 }

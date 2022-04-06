@@ -1,35 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Tesis\\Nueva carpeta\\apisdondesalimo\\apisdondesalimo.csproj": {}
+    "C:\\Users\\cecil\\Desktop\\Tesis\\DondeSalimos\\apisdondesalimo\\apisdondesalimo.csproj": {}
   },
   "projects": {
-    "E:\\Tesis\\Nueva carpeta\\apisdondesalimo\\apisdondesalimo.csproj": {
+    "C:\\Users\\cecil\\Desktop\\Tesis\\DondeSalimos\\apisdondesalimo\\apisdondesalimo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Tesis\\Nueva carpeta\\apisdondesalimo\\apisdondesalimo.csproj",
+        "projectUniqueName": "C:\\Users\\cecil\\Desktop\\Tesis\\DondeSalimos\\apisdondesalimo\\apisdondesalimo.csproj",
         "projectName": "apisdondesalimo",
-        "projectPath": "E:\\Tesis\\Nueva carpeta\\apisdondesalimo\\apisdondesalimo.csproj",
-        "packagesPath": "C:\\Users\\Lucas\\.nuget\\packages\\",
-        "outputPath": "E:\\Tesis\\Nueva carpeta\\apisdondesalimo\\obj\\",
+        "projectPath": "C:\\Users\\cecil\\Desktop\\Tesis\\DondeSalimos\\apisdondesalimo\\apisdondesalimo.csproj",
+        "packagesPath": "C:\\Users\\cecil\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\cecil\\Desktop\\Tesis\\DondeSalimos\\apisdondesalimo\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Lucas\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\cecil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.1"
+          "net5.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.1": {
+          "net5.0": {
+            "targetAlias": "net5.0",
             "projectReferences": {}
           }
         },
@@ -40,7 +37,20 @@
         }
       },
       "frameworks": {
-        "netcoreapp3.1": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.8, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -59,7 +69,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
         }
       }
     }

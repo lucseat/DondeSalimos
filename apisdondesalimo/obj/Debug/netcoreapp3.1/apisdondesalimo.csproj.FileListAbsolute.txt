@@ -18,3 +18,24 @@ E:\Tesis\Nueva carpeta\apisdondesalimo\obj\Debug\netcoreapp3.1\staticwebassets\a
 E:\Tesis\Nueva carpeta\apisdondesalimo\obj\Debug\netcoreapp3.1\apisdondesalimo.dll
 E:\Tesis\Nueva carpeta\apisdondesalimo\obj\Debug\netcoreapp3.1\apisdondesalimo.pdb
 E:\Tesis\Nueva carpeta\apisdondesalimo\obj\Debug\netcoreapp3.1\apisdondesalimo.genruntimeconfig.cache
+C:\Users\cecil\Desktop\Tesis\DondeSalimos\apisdondesalimo\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Users\cecil\Desktop\Tesis\DondeSalimos\apisdondesalimo\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\cecil\Desktop\Tesis\DondeSalimos\apisdondesalimo\bin\Debug\netcoreapp3.1\apisdondesalimo.exe
+C:\Users\cecil\Desktop\Tesis\DondeSalimos\apisdondesalimo\bin\Debug\netcoreapp3.1\apisdondesalimo.deps.json
+C:\Users\cecil\Desktop\Tesis\DondeSalimos\apisdondesalimo\bin\Debug\netcoreapp3.1\apisdondesalimo.runtimeconfig.json
+C:\Users\cecil\Desktop\Tesis\DondeSalimos\apisdondesalimo\bin\Debug\netcoreapp3.1\apisdondesalimo.runtimeconfig.dev.json
+C:\Users\cecil\Desktop\Tesis\DondeSalimos\apisdondesalimo\bin\Debug\netcoreapp3.1\apisdondesalimo.dll
+C:\Users\cecil\Desktop\Tesis\DondeSalimos\apisdondesalimo\bin\Debug\netcoreapp3.1\apisdondesalimo.pdb
+C:\Users\cecil\Desktop\Tesis\DondeSalimos\apisdondesalimo\obj\Debug\netcoreapp3.1\apisdondesalimo.csproj.AssemblyReference.cache
+C:\Users\cecil\Desktop\Tesis\DondeSalimos\apisdondesalimo\obj\Debug\netcoreapp3.1\apisdondesalimo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\cecil\Desktop\Tesis\DondeSalimos\apisdondesalimo\obj\Debug\netcoreapp3.1\apisdondesalimo.AssemblyInfoInputs.cache
+C:\Users\cecil\Desktop\Tesis\DondeSalimos\apisdondesalimo\obj\Debug\netcoreapp3.1\apisdondesalimo.AssemblyInfo.cs
+C:\Users\cecil\Desktop\Tesis\DondeSalimos\apisdondesalimo\obj\Debug\netcoreapp3.1\apisdondesalimo.csproj.CoreCompileInputs.cache
+C:\Users\cecil\Desktop\Tesis\DondeSalimos\apisdondesalimo\obj\Debug\netcoreapp3.1\apisdondesalimo.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\cecil\Desktop\Tesis\DondeSalimos\apisdondesalimo\obj\Debug\netcoreapp3.1\staticwebassets\apisdondesalimo.StaticWebAssets.Manifest.cache
+C:\Users\cecil\Desktop\Tesis\DondeSalimos\apisdondesalimo\obj\Debug\netcoreapp3.1\staticwebassets\apisdondesalimo.StaticWebAssets.xml
+C:\Users\cecil\Desktop\Tesis\DondeSalimos\apisdondesalimo\obj\Debug\netcoreapp3.1\scopedcss\bundle\apisdondesalimo.styles.css
+C:\Users\cecil\Desktop\Tesis\DondeSalimos\apisdondesalimo\obj\Debug\netcoreapp3.1\apisdondesalimo.RazorTargetAssemblyInfo.cache
+C:\Users\cecil\Desktop\Tesis\DondeSalimos\apisdondesalimo\obj\Debug\netcoreapp3.1\apisdondesalimo.dll
+C:\Users\cecil\Desktop\Tesis\DondeSalimos\apisdondesalimo\obj\Debug\netcoreapp3.1\apisdondesalimo.pdb
+C:\Users\cecil\Desktop\Tesis\DondeSalimos\apisdondesalimo\obj\Debug\netcoreapp3.1\apisdondesalimo.genruntimeconfig.cache
