@@ -1,5 +1,4 @@
-﻿#nullable disable
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DondeSalimosAPI.Models;
+using DondeSalimosAPI.Models.Response;
 
 namespace DondeSalimosAPI.Controllers
 {
@@ -14,51 +14,88 @@ namespace DondeSalimosAPI.Controllers
     [ApiController]
     public class ClientesController : ControllerBase
     {
-        private readonly Contexto _context;
+        private readonly Context _context;
 
-        public ClientesController(Contexto context)
+        public ClientesController(Context context)
         {
             _context = context;
         }
 
         // GET: api/Clientes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Cliente>>> GetClientes()
+        public async Task<ActionResult<IEnumerable<Cliente>>> GetCliente()
         {
-            return await _context.Cliente.ToListAsync();
+            Respuesta oRespuesta = new Respuesta();
+
+            try
+            {
+                var listadoClientes = await _context.Cliente.ToListAsync();
+                oRespuesta.Exito = 1;
+                oRespuesta.Data = listadoClientes;
+            }
+            catch (Exception ex)
+            {
+                oRespuesta.Mensaje = ex.Message;
+            }
+
+            return Ok(oRespuesta);
         }
 
-        // GET: api/Clientes/5
+        // GET: api/Clientes/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Cliente>> GetCliente(int id)
         {
-            var cliente = await _context.Cliente.FindAsync(id);
+            Respuesta oRespuesta = new Respuesta();
 
-            if (cliente == null)
+            try
             {
-                return NotFound();
+                var cliente = await _context.Cliente.FindAsync(id);
+
+                if (cliente == null)
+                {
+                    oRespuesta.Exito = 0;
+                    oRespuesta.Mensaje = "El cliente no existe";
+                }
+                else
+                {
+                    oRespuesta.Exito = 1;
+                    oRespuesta.Data = cliente;
+                }                
+            }
+            catch (Exception ex)
+            {
+                oRespuesta.Mensaje = ex.Message;
             }
 
-            return cliente;
+            return Ok(oRespuesta);
         }
 
-        // PUT: api/Clientes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // PUT: api/Clientes/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCliente(int id, Cliente cliente)
         {
-            if (id != cliente.id_cliente)
+            Respuesta oRespuesta = new Respuesta();
+
+            /* (id != cliente.Id_Cliente)
             {
                 return BadRequest();
-            }
+            }*/
 
             _context.Entry(cliente).State = EntityState.Modified;
 
             try
             {
                 await _context.SaveChangesAsync();
+                oRespuesta.Exito = 1;
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
+            {
+                oRespuesta.Mensaje = ex.Message;
+            }
+
+            return Ok(oRespuesta);
+
+            /*catch (DbUpdateConcurrencyException)
             {
                 if (!ClienteExists(id))
                 {
@@ -70,23 +107,34 @@ namespace DondeSalimosAPI.Controllers
                 }
             }
 
-            return NoContent();
+            return NoContent();*/
         }
 
         // POST: api/Clientes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Cliente>> PostCliente(Cliente cliente)
         {
-            _context.Cliente.Add(cliente);
-            await _context.SaveChangesAsync();
+            Respuesta oRespuesta = new Respuesta();
 
-            return CreatedAtAction("GetCliente", new { id = cliente.id_cliente }, cliente);
+            try
+            {
+                _context.Cliente.Add(cliente);
+                await _context.SaveChangesAsync();
+                oRespuesta.Exito = 1;
+            }
+            catch (Exception ex)
+            {
+                oRespuesta.Mensaje = ex.Message;
+            }
+
+            return Ok(oRespuesta);
+
+            //return CreatedAtAction("GetCliente", new { id = cliente.Id_Cliente }, cliente);
         }
 
-        // DELETE: api/Clientes/5
+        // DELETE: api/Clientes/{id}
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCliente(int id)
+        public async Task<ActionResult<Cliente>> DeleteCliente(int id)
         {
             var cliente = await _context.Cliente.FindAsync(id);
             if (cliente == null)
@@ -97,12 +145,12 @@ namespace DondeSalimosAPI.Controllers
             _context.Cliente.Remove(cliente);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return cliente;
         }
 
         private bool ClienteExists(int id)
         {
-            return _context.Cliente.Any(e => e.id_cliente == id);
+            return _context.Cliente.Any(e => e.Id_Cliente == id);
         }
     }
 }

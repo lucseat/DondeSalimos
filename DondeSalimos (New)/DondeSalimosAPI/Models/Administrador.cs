@@ -1,14 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DondeSalimosAPI.Models
 {
-    public class Administrador
+    public partial class Administrador
     {
         [Key]
-        public int? id_administrador { get; set; }
-        public string usuario { get; set; }
-        //se cambio contrasenia
-        public string contrasenia { get; set; }
-        public string permisos { get; set; }
+        public int Id_Administrador { get; set; }
+        public string Usuario { get; set; }
+        public string Contrasenia { get; set; }
+        public string Permisos { get; set; }
+
+        public virtual ICollection<Grupo> Grupo { get; set; }
     }
 }

@@ -1,18 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DondeSalimosAPI.Models
 {
-    public class Cliente
+    public partial class Cliente
     {
         [Key]
-        public int id_cliente { get; set; }
-        public string apodo { get; set; }
-        public string nombre { get; set; }
-        public string? tipoDocumento { get; set; }
-        public string? nroDocumento { get; set; }
-        public string email { get; set; }
-        public int telefono { get; set; }
-        public string usuario { get; set; }
-        public string contrasenia { get; set; }
+        public int Id_Cliente { get; set; }
+        public string Apodo { get; set; }
+        public string Nombre { get; set; }
+        public string TipoDocumento { get; set; }
+        public string NroDocumento { get; set; }
+        public string Email { get; set; }
+        public int? Telefono { get; set; }
+        public string Usuario { get; set; }
+        public string Contrasenia { get; set; }
+
+        public virtual ICollection<Grupo> Grupo { get; set; }
+        public virtual ICollection<Resenia> Resenia { get; set; }
+        public virtual ICollection<Reserva> Reserva { get; set; }
     }
 }

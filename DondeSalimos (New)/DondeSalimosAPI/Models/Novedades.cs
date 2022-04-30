@@ -1,13 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DondeSalimosAPI.Models
 {
-    public class Novedades
+    public partial class Novedades
     {
         [Key]
-        public int id_novedad { get; set; }
-        public Comercio comercio { get; set; }
-        public string descripcion { get; set; }
-        public int visualizaciones { get; set; }
+        public int Id_Novedades { get; set; }
+        public int Id_Comercio { get; set; }
+        public string Descripcion { get; set; }
+        public int Visualizaciones { get; set; }
+
+        [ForeignKey("Id_Comercio")]
+        public virtual Comercio IdComercioNavigation { get; set; }
     }
 }

@@ -1,32 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nicoz\\Documents\\Analista en Sistemas\\Git\\DondeSalimosAPI\\DondeSalimosAPI\\DondeSalimosAPI.csproj": {}
+    "C:\\Users\\nzalazar\\Documents\\Tesis\\DondeSalimos\\DondeSalimos (New)\\DondeSalimosAPI\\DondeSalimosAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nicoz\\Documents\\Analista en Sistemas\\Git\\DondeSalimosAPI\\DondeSalimosAPI\\DondeSalimosAPI.csproj": {
+    "C:\\Users\\nzalazar\\Documents\\Tesis\\DondeSalimos\\DondeSalimos (New)\\DondeSalimosAPI\\DondeSalimosAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nicoz\\Documents\\Analista en Sistemas\\Git\\DondeSalimosAPI\\DondeSalimosAPI\\DondeSalimosAPI.csproj",
+        "projectUniqueName": "C:\\Users\\nzalazar\\Documents\\Tesis\\DondeSalimos\\DondeSalimos (New)\\DondeSalimosAPI\\DondeSalimosAPI.csproj",
         "projectName": "DondeSalimosAPI",
-        "projectPath": "C:\\Users\\nicoz\\Documents\\Analista en Sistemas\\Git\\DondeSalimosAPI\\DondeSalimosAPI\\DondeSalimosAPI.csproj",
-        "packagesPath": "C:\\Users\\nicoz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nicoz\\Documents\\Analista en Sistemas\\Git\\DondeSalimosAPI\\DondeSalimosAPI\\obj\\",
+        "projectPath": "C:\\Users\\nzalazar\\Documents\\Tesis\\DondeSalimos\\DondeSalimos (New)\\DondeSalimosAPI\\DondeSalimosAPI.csproj",
+        "packagesPath": "C:\\Users\\nzalazar\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\nzalazar\\Documents\\Tesis\\DondeSalimos\\DondeSalimos (New)\\DondeSalimosAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\nicoz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nzalazar\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "netcoreapp3.1"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -37,32 +37,22 @@
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[6.0.3, )"
-            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[6.0.3, )"
+              "version": "[3.1.23, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.3, )"
+              "version": "[3.1.23, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[6.0.2, )"
-            },
-            "Swashbuckle.AspNetCore": {
-              "target": "Package",
-              "version": "[6.2.3, )"
+              "version": "[3.1.5, )"
             }
           },
           "imports": [
