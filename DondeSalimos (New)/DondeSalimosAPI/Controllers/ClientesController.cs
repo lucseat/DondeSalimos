@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable disable
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,16 +14,16 @@ namespace DondeSalimosAPI.Controllers
     [ApiController]
     public class ClientesController : ControllerBase
     {
-        private readonly Context _context;
+        private readonly Contexto _context;
 
-        public ClientesController(Context context)
+        public ClientesController(Contexto context)
         {
             _context = context;
         }
 
         // GET: api/Clientes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Cliente>>> GetCliente()
+        public async Task<ActionResult<IEnumerable<Cliente>>> GetClientes()
         {
             return await _context.Cliente.ToListAsync();
         }
@@ -42,12 +43,11 @@ namespace DondeSalimosAPI.Controllers
         }
 
         // PUT: api/Clientes/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCliente(int id, Cliente cliente)
         {
-            if (id != cliente.Id_Cliente)
+            if (id != cliente.id_cliente)
             {
                 return BadRequest();
             }
@@ -74,20 +74,19 @@ namespace DondeSalimosAPI.Controllers
         }
 
         // POST: api/Clientes
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Cliente>> PostCliente(Cliente cliente)
         {
             _context.Cliente.Add(cliente);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCliente", new { id = cliente.Id_Cliente }, cliente);
+            return CreatedAtAction("GetCliente", new { id = cliente.id_cliente }, cliente);
         }
 
         // DELETE: api/Clientes/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Cliente>> DeleteCliente(int id)
+        public async Task<IActionResult> DeleteCliente(int id)
         {
             var cliente = await _context.Cliente.FindAsync(id);
             if (cliente == null)
@@ -98,12 +97,12 @@ namespace DondeSalimosAPI.Controllers
             _context.Cliente.Remove(cliente);
             await _context.SaveChangesAsync();
 
-            return cliente;
+            return NoContent();
         }
 
         private bool ClienteExists(int id)
         {
-            return _context.Cliente.Any(e => e.Id_Cliente == id);
+            return _context.Cliente.Any(e => e.id_cliente == id);
         }
     }
 }

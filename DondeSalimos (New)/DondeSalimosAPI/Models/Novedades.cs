@@ -1,23 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-// Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
-// If you have enabled NRTs for your project, then un-comment the following line:
-// #nullable disable
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DondeSalimosAPI.Models
 {
-    public partial class Novedades
+    public class Novedades
     {
         [Key]
-        public int Id_Novedades { get; set; }
-        public int Id_Comercio { get; set; }
-        public string Descripcion { get; set; }
-        public int Visualizaciones { get; set; }
-
-        [ForeignKey("Id_Comercio")]
-        public virtual Comercio IdComercioNavigation { get; set; }
+        public int id_novedad { get; set; }
+        public Comercio comercio { get; set; }
+        public string descripcion { get; set; }
+        public int visualizaciones { get; set; }
     }
 }
