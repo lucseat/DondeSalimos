@@ -30,8 +30,8 @@ namespace DondeSalimosAPI.Controllers
             try
             {
                 var resenias = await _context.Resenia
-                                        .Include(x => x.Id_Cliente)
-                                        .Include(x => x.Id_Comercio)
+                                        .Include(x => x.Cliente)
+                                        .Include(x => x.Comercio)
                                         .ToListAsync();
 
                 oRespuesta.Exito = 1;
@@ -56,8 +56,8 @@ namespace DondeSalimosAPI.Controllers
             {
                 var resenia = await _context.Resenia
                                         .Where(x => x.Id_Resenia == id)
-                                        .Include(x => x.Id_Cliente)
-                                        .Include(x => x.Id_Comercio)
+                                        .Include(x => x.Cliente)
+                                        .Include(x => x.Comercio)
                                         .ToListAsync();
 
                 if (resenia == null)

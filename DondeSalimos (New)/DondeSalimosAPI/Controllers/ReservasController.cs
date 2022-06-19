@@ -30,8 +30,8 @@ namespace DondeSalimosAPI.Controllers
             try
             {
                 var reservas = await _context.Reserva
-                                        .Include(x => x.Id_Cliente)
-                                        .Include(x => x.Id_Comercio)
+                                        .Include(x => x.Cliente)
+                                        .Include(x => x.Comercio)
                                         .ToListAsync();
 
                 oRespuesta.Exito = 1;
@@ -56,8 +56,8 @@ namespace DondeSalimosAPI.Controllers
             {
                 var reserva = await _context.Reserva
                                         .Where(x => x.Id_Reserva == id)
-                                        .Include(x => x.Id_Cliente)
-                                        .Include(x => x.Id_Comercio)
+                                        .Include(x => x.Cliente)
+                                        .Include(x => x.Comercio)
                                         .ToListAsync();
 
                 if (reserva == null)

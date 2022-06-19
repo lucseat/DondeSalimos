@@ -30,8 +30,8 @@ namespace DondeSalimosAPI.Controllers
             try
             {
                 var grupos = await _context.Grupo
-                                        .Include(x => x.Id_Cliente)
-                                        .Include(x => x.Id_Administrador)
+                                        .Include(x => x.Cliente)
+                                        .Include(x => x.Administrador)
                                         .ToListAsync();
                 oRespuesta.Exito = 1;
                 oRespuesta.Data = grupos;
@@ -55,8 +55,8 @@ namespace DondeSalimosAPI.Controllers
             {
                 var grupo = await _context.Grupo
                                         .Where(x => x.Id_Grupo == id)
-                                        .Include(x => x.Id_Cliente)
-                                        .Include(x => x.Id_Administrador)
+                                        .Include(x => x.Cliente)
+                                        .Include(x => x.Administrador)
                                         .FirstOrDefaultAsync();
 
                 if (grupo == null)

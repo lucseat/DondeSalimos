@@ -30,7 +30,7 @@ namespace DondeSalimosAPI.Controllers
             try
             {
                 var presupuestos = await _context.Presupuesto
-                                            .Include(x => x.Id_Factura)
+                                            .Include(x => x.Factura)
                                             .ToListAsync();
 
                 oRespuesta.Exito = 1;
@@ -55,7 +55,7 @@ namespace DondeSalimosAPI.Controllers
             {
                 var presupuesto = await _context.Presupuesto
                                             .Where(x => x.Id_Presupuesto == id)
-                                            .Include(x => x.Id_Factura)
+                                            .Include(x => x.Factura)
                                             .FirstOrDefaultAsync();
 
                 if (presupuesto == null)

@@ -30,7 +30,7 @@ namespace DondeSalimosAPI.Controllers
             try
             {
                 var publicidades = await _context.Publicidad
-                                            .Include(x => x.Id_Comercio)
+                                            .Include(x => x.Comercio)
                                             .ToListAsync();
 
                 oRespuesta.Exito = 1;
@@ -55,7 +55,7 @@ namespace DondeSalimosAPI.Controllers
             {
                 var publicidad = await _context.Publicidad
                                             .Where(x => x.Id_Publicidad == id)
-                                            .Include(x => x.Id_Comercio)
+                                            .Include(x => x.Comercio)
                                             .FirstOrDefaultAsync();
 
                 if (publicidad == null)

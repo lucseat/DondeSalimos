@@ -30,7 +30,7 @@ namespace DondeSalimosAPI.Controllers
             try
             {
                 var novedades = await _context.Novedades
-                                        .Include(x => x.Id_Comercio)
+                                        .Include(x => x.Comercio)
                                         .ToListAsync();
 
                 oRespuesta.Exito = 1;
@@ -55,7 +55,7 @@ namespace DondeSalimosAPI.Controllers
             {
                 var novedad = await _context.Novedades
                                         .Where(x => x.Id_Novedades == id)
-                                        .Include(x => x.Id_Comercio)
+                                        .Include(x => x.Comercio)
                                         .FirstOrDefaultAsync();
 
                 if (novedad == null)
