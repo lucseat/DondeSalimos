@@ -1,0 +1,67 @@
+﻿@page "/Usuarios/Editar_Nuevo/"
+@page "/Usuarios/Editar_Nuevo/{ID_Usuario:int}"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<h3>@TituloPagina</h3>
+
+<EditForm Model="@Usuario" OnValidSubmit="@Guardar">
+    <div class="form-group">
+        <b>Usuario</b><br />
+        <div>
+            <InputText @bind-Value="@Usuario.NombreUsuario" />
+            <ValidationMessage For="@(() => Usuario.NombreUsuario)" />
+        </div>
+        <b>Contraseña</b><br />
+        <div>
+            <InputText type="password" @bind-Value="@Usuario.Contrasenia" />
+            <ValidationMessage For="@(() => Usuario.Contrasenia)" />
+        </div>
+        <b>Administrador</b><br />
+        <div>
+            <InputCheckbox @bind-Value="@Usuario.Administrador" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-success"> Guardar </button>
+        <a class="btn btn-info" href="Usuarios/Listado/">Volver</a>
+    </div>
+    <br />
+    <DataAnnotationsValidator />
+</EditForm>
+
+@code {
+    [Parameter] public int ID_Usuario { get; set; }
+    public string TituloPagina;
+    public string Url = "/api/usuarios";
+
+    DondeSalimos.Shared.Modelos.Usuario Usuario = new DondeSalimos.Shared.Modelos.Usuario();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (ID_Usuario > 0)
+        {
+            TituloPagina = "Editar usuario";
+            Usuario = await Http.GetFromJsonAsync<DondeSalimos.Shared.Modelos.Usuario>($"{Url}/{ID_Usuario}");
+        }
+        else
+        {
+            TituloPagina = "Nuevo usuario";
+        }
+    }
+
+    async Task Guardar()
+    {
+        if (ID_Usuario > 0)
+        {
+            await Http.PutAsJsonAsync($"{Url}/{ID_Usuario}", Usuario);
+        }
+        else
+        {
+            await Http.PostAsJsonAsync(Url, Usuario);
+        }
+
+        NavigationManager.NavigateTo("/Usuarios/Listado");
+    }
+}

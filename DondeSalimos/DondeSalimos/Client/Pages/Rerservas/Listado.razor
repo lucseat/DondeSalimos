@@ -1,0 +1,89 @@
+﻿@page "/Reservas/Listado"
+@inject HttpClient Http
+
+<h3>Listado de Reservas</h3>
+<form>
+    <div class="row">
+        <div class="col-md-5">
+            <b>Cliente</b><br />
+            <input type="text" class="form-control" placeholder="Nombre del cliente" @bind-value="Titulo" @bind-value:event="oninput" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            <button type="button" class="btn btn-primary" @onclick="filtro">Filtrar</button>
+            <a class="btn btn-info" href="Reservas/Editar_Nuevo/">Nuevo</a>
+        </div>
+    </div>
+    <br />
+</form>
+
+@if (Reservas == null)
+{
+    <text>Cargando..</text>
+}
+else if (Reservas.Count == 0)
+{
+    <text>No hay reservas en la base de datos</text>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Cantidad de personas</th>
+                <th scope="col">Tiempo de tolerancia</th>
+                <th scope="col">Comercio</th>
+                <th scope="col">Cliente</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Reservas)
+            {
+                <tr>
+                    <td>@row.CantPersonas</td>
+                    <td>@row.TiempoTolerancia</td>
+                    <td>@row.Comercio.Nombre</td>
+                    <td>@row.Cliente.Nombre</td>
+                    <td>
+                        <a href="Reservas/Editar_Nuevo/@row.ID_Reserva">Editar</a> |
+                        <a href="Reservas/Eliminar/@row.ID_Reserva">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter] public string Titulo { get; set; }
+    public string Url = "/api/reservas";
+
+    private List<DondeSalimos.Shared.Modelos.Reserva> Reservas;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarReservas();
+    }
+
+    async Task CargarReservas()
+    {
+        Reservas = await Http.GetFromJsonAsync<List<DondeSalimos.Shared.Modelos.Reserva>>(Url);
+    }
+
+    public async Task filtro()
+    {
+        //Filtrar por 'Nombre cliente'
+        if (!string.IsNullOrEmpty(Titulo))
+        {
+            Reservas = await Http.GetFromJsonAsync<List<DondeSalimos.Shared.Modelos.Reserva>>($"{Url}/{Titulo}");
+        }
+        else
+        {
+            await CargarReservas();
+        }
+
+        StateHasChanged();
+    }
+}

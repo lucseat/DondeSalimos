@@ -1,0 +1,93 @@
+﻿@page "/Reservas/Editar_Nuevo/"
+@page "/Reservas/Editar_Nuevo/{ID_Reserva:int}"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<h3>@TituloPagina</h3>
+
+<EditForm Model="@Reserva" OnValidSubmit="@Guardar">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <b>Cantidad de personas</b><br />
+        <div>
+            <InputNumber @bind-Value="@Reserva.CantPersonas" />
+            <ValidationMessage For="@(() => Reserva.CantPersonas)" />
+        </div>
+        <b>Comercio</b><br />
+        <div>
+            <select class="form-control" @bind="ComercioSeleccionado">
+                <option selected disabled value="-1"> Seleccione un comercio</option>
+                @foreach (var item in Comercios)
+                {
+                    <option value="@item.ID_Comercio">@item.Nombre</option>
+                }
+            </select>
+        </div>
+        <b>Cliente</b><br />
+        <div>
+            <select class="form-control" @bind="ClienteSeleccionado">
+                <option selected disabled value="-1"> Seleccione un cliente</option>
+                @foreach (var item in Clientes)
+                {
+                    <option value="@item.ID_Cliente">@item.Nombre</option>
+                }
+            </select>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-success"> Guardar </button>
+        <a class="btn btn-info" href="Reservas/Listado/">Volver</a>
+    </div>
+    <br />
+    <ValidationSummary />
+</EditForm>
+
+@code {
+    [Parameter] public int ID_Reserva { get; set; }
+    public string TituloPagina;
+    public string Url = "/api/reservas";
+    public int ComercioSeleccionado { get; set; }
+    public int ClienteSeleccionado { get; set; }
+
+    DondeSalimos.Shared.Modelos.Reserva Reserva = new DondeSalimos.Shared.Modelos.Reserva();
+    List<DondeSalimos.Shared.Modelos.Comercio> Comercios = new List<DondeSalimos.Shared.Modelos.Comercio>();
+    List<DondeSalimos.Shared.Modelos.Cliente> Clientes = new List<DondeSalimos.Shared.Modelos.Cliente>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Comercios = await Http.GetFromJsonAsync<List<DondeSalimos.Shared.Modelos.Comercio>>("/api/comercios");
+        Clientes  = await Http.GetFromJsonAsync<List<DondeSalimos.Shared.Modelos.Cliente>>("/api/clientes");
+
+        if (ID_Reserva > 0)
+        {
+            TituloPagina = "Editar reserva";
+            Reserva = await Http.GetFromJsonAsync<DondeSalimos.Shared.Modelos.Reserva>($"{Url}/{ID_Reserva}");
+            ComercioSeleccionado = Reserva.ID_Comercio;
+            ClienteSeleccionado  = Reserva.ID_Cliente;
+        }
+        else
+        {
+            TituloPagina = "Nueva reserva";
+            ComercioSeleccionado = Comercios.FirstOrDefault().ID_Comercio;
+            ClienteSeleccionado  = Clientes.FirstOrDefault().ID_Usuario;
+        }
+    }
+
+    async Task Guardar()
+    {
+        Reserva.ID_Comercio = ComercioSeleccionado;
+        Reserva.ID_Cliente  = ClienteSeleccionado;
+
+        if (ID_Reserva > 0)
+        {
+            await Http.PutAsJsonAsync($"{Url}/{ID_Reserva}", Reserva);
+        }
+        else
+        {
+            await Http.PostAsJsonAsync(Url, Reserva);
+        }
+
+        NavigationManager.NavigateTo("/Reservas/Listado");
+    }
+}

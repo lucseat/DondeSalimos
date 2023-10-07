@@ -1,0 +1,103 @@
+﻿@page "/Resenias/Editar_Nuevo/"
+@page "/Resenias/Editar_Nuevo/{ID_Resenia:int}"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<h3>@TituloPagina</h3>
+
+<EditForm Model="@Resenia" OnValidSubmit="@Guardar">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <b>Cliente</b><br />
+        <div>
+            <select class="form-control" @bind="ClienteSeleccionado">
+                <option selected disabled value="-1"> Seleccione un cliente</option>
+                @foreach (var item in Clientes)
+                {
+                    <option value="@item.ID_Cliente">@item.Nombre</option>
+                }
+            </select>
+        </div>
+        <b>Comercio</b><br />
+        <div>
+            <select class="form-control" @bind="ComercioSeleccionado">
+                <option selected disabled value="-1"> Seleccione un comercio</option>
+                @foreach (var item in Comercios)
+                {
+                    <option value="@item.ID_Comercio">@item.Nombre</option>
+                }
+            </select>
+        </div>
+        <b>Reportado</b><br />
+        <div>
+            <InputText @bind-Value="@Resenia.Reportado" />
+            <ValidationMessage For="@(() => Resenia.Reportado)" />
+        </div>
+        <b>Mostrar</b><br />
+        <div>
+            <InputCheckbox @bind-Value="@Resenia.Mostrar" />
+            <ValidationMessage For="@(() => Resenia.Reportado)" />
+        </div>        
+        <b>Comentario</b><br />
+        <div>
+            <InputTextArea @bind-Value="@Resenia.Comentario" />
+            <ValidationMessage For="@(() => Resenia.Comentario)" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-success"> Guardar </button>
+        <a class="btn btn-info" href="Resenias/Listado/">Volver</a>
+    </div>
+    <br />
+    <ValidationSummary />
+</EditForm>
+
+@code {
+    [Parameter] public int ID_Resenia { get; set; }
+    public string TituloPagina;
+    public string Url = "/api/resenias";
+    public int ComercioSeleccionado { get; set; }
+    public int ClienteSeleccionado { get; set; }
+
+    DondeSalimos.Shared.Modelos.Resenia Resenia = new DondeSalimos.Shared.Modelos.Resenia();
+    List<DondeSalimos.Shared.Modelos.Comercio> Comercios = new List<DondeSalimos.Shared.Modelos.Comercio>();
+    List<DondeSalimos.Shared.Modelos.Cliente> Clientes = new List<DondeSalimos.Shared.Modelos.Cliente>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Clientes = await Http.GetFromJsonAsync<List<DondeSalimos.Shared.Modelos.Cliente>>("/api/clientes");
+        Comercios = await Http.GetFromJsonAsync<List<DondeSalimos.Shared.Modelos.Comercio>>("/api/comercios");
+
+        if (ID_Resenia > 0)
+        {
+            TituloPagina = "Editar reseña";
+            Resenia = await Http.GetFromJsonAsync<DondeSalimos.Shared.Modelos.Resenia>($"{Url}/{ID_Resenia}");
+            ClienteSeleccionado = Resenia.ID_Cliente;
+            ComercioSeleccionado = Resenia.ID_Comercio;
+        }
+        else
+        {
+            TituloPagina = "Nueva reseña";
+            ClienteSeleccionado = Clientes.FirstOrDefault().ID_Usuario;
+            ComercioSeleccionado = Comercios.FirstOrDefault().ID_Comercio;
+        }
+    }
+
+    async Task Guardar()
+    {
+        Resenia.ID_Cliente = ClienteSeleccionado;
+        Resenia.ID_Comercio = ComercioSeleccionado;
+
+        if (ID_Resenia > 0)
+        {
+            await Http.PutAsJsonAsync($"{Url}/{ID_Resenia}", Resenia);
+        }
+        else
+        {
+            await Http.PostAsJsonAsync(Url, Resenia);
+        }
+
+        NavigationManager.NavigateTo("/Resenias/Listado");
+    }
+}

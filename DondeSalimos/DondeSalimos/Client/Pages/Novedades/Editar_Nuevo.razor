@@ -1,0 +1,82 @@
+﻿@page "/Novedades/Editar_Nuevo/"
+@page "/Novedades/Editar_Nuevo/{ID_Novedad:int}"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<h3>@TituloPagina</h3>
+
+<EditForm Model="@Novedad" OnValidSubmit="@Guardar">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <b>Comercio</b><br />
+        <div>
+            <select class="form-control" @bind="ComercioSeleccionado">
+                <option selected disabled value="-1"> Seleccione un comercio</option>
+                @foreach (var item in Comercios)
+                {
+                    <option value="@item.ID_Comercio">@item.Nombre</option>
+                }
+            </select>
+        </div>
+        <b>Descripción</b><br />
+        <div>
+            <InputText @bind-Value="@Novedad.Descripcion" />
+            <ValidationMessage For="@(() => Novedad.Descripcion)" />
+        </div>
+        <b>Visualizaciones</b><br />
+        <div>
+            <InputNumber @bind-Value="@Novedad.Visualizaciones" />
+            <ValidationMessage For="@(() => Novedad.Visualizaciones)" />
+        </div>        
+    </div>
+    <br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-success"> Guardar </button>
+        <a class="btn btn-info" href="Novedades/Listado/">Volver</a>
+    </div>
+    <br />
+    <ValidationSummary />
+</EditForm>
+
+@code {
+    [Parameter] public int ID_Novedad { get; set; }
+    public string TituloPagina;
+    public string Url = "/api/novedades";
+    public int ComercioSeleccionado { get; set; }
+
+    DondeSalimos.Shared.Modelos.Novedad Novedad = new DondeSalimos.Shared.Modelos.Novedad();
+    List<DondeSalimos.Shared.Modelos.Comercio> Comercios = new List<DondeSalimos.Shared.Modelos.Comercio>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Comercios = await Http.GetFromJsonAsync<List<DondeSalimos.Shared.Modelos.Comercio>>("/api/comercios");
+
+        if (ID_Novedad > 0)
+        {
+            TituloPagina = "Editar novedad";
+            Novedad = await Http.GetFromJsonAsync<DondeSalimos.Shared.Modelos.Novedad>($"{Url}/{ID_Novedad}");
+            ComercioSeleccionado = Novedad.ID_Comercio;
+        }
+        else
+        {
+            TituloPagina = "Nueva novedad";
+            ComercioSeleccionado = Comercios.FirstOrDefault().ID_Comercio;
+        }
+    }
+
+    async Task Guardar()
+    {
+        Novedad.ID_Comercio = ComercioSeleccionado;
+
+        if (ID_Novedad > 0)
+        {
+            await Http.PutAsJsonAsync($"{Url}/{ID_Novedad}", Novedad);
+        }
+        else
+        {
+            await Http.PostAsJsonAsync(Url, Novedad);
+        }
+
+        NavigationManager.NavigateTo("/Novedades/Listado");
+    }
+}

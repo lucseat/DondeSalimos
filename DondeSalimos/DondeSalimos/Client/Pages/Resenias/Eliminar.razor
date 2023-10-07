@@ -1,0 +1,45 @@
+﻿@page "/Resenias/Eliminar/{ID_Resenia:int}"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<h3>Eliminar reseña</h3>
+<form>
+    <div class="row">
+        <div class="col-md-5">
+            <b>Reseña</b><br />
+            <input type="text" class="form-control" @bind-value="Resenia.ID_Resenia" disabled="disabled" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3 alert alert-danger">
+            <h5>¿Esta seguro que desea eliminarlo?</h5>
+            <input type="hidden" @bind-value="Resenia.ID_Resenia" />
+            <button type="button" class="btn btn-danger" @onclick="borrar">Si</button>
+            <a class="btn btn-primary" href="Resenias/Listado">No</a>
+        </div>
+    </div>
+    <br />
+</form>
+
+@code {
+    [Parameter] public int ID_Resenia { get; set; }
+    public string Url = "/api/resenias";
+
+    DondeSalimos.Shared.Modelos.Resenia Resenia = new DondeSalimos.Shared.Modelos.Resenia();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (ID_Resenia > 0)
+        {
+            Resenia = await Http.GetFromJsonAsync<DondeSalimos.Shared.Modelos.Resenia>($"{Url}/{ID_Resenia}");
+        }
+    }
+
+    async Task borrar()
+    {
+        await Http.DeleteAsync($"{Url}/{ID_Resenia}");
+
+        NavigationManager.NavigateTo("/Resenias/Listado");
+    }
+}

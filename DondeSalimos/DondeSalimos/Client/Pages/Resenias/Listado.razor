@@ -1,0 +1,91 @@
+﻿@page "/Resenias/Listado"
+@inject HttpClient Http
+
+<h3>Listado de Reseñas</h3>
+<form>
+    <div class="row">
+        <div class="col-md-5">
+            <b>Comercio</b><br />
+            <input type="text" class="form-control" placeholder="Nombre del comercio" @bind-value="Titulo" @bind-value:event="oninput" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            <button type="button" class="btn btn-primary" @onclick="filtro">Filtrar</button>
+            <a class="btn btn-info" href="Resenias/Editar_Nuevo/">Nuevo</a>
+        </div>
+    </div>
+    <br />
+</form>
+
+@if (Resenias == null)
+{
+    <text>Cargando..</text>
+}
+else if (Resenias.Count == 0)
+{
+    <text>No hay reseñas en la base de datos</text>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Cliente</th>
+                <th scope="col">Comercio</th>
+                <th scope="col">Reportado</th>
+                <th scope="col">Mostrar</th>
+                <th scope="col">Comentario</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Resenias)
+            {
+                <tr>
+                    <td>@row.Cliente.Nombre</td>
+                    <td>@row.Comercio.Nombre</td>
+                    <td>@row.Reportado</td>
+                    <td>@row.Mostrar</td>
+                    <td>@row.Comentario</td>
+                    <td>
+                        <a href="Resenias/Editar_Nuevo/@row.ID_Resenia">Editar</a> |
+                        <a href="Resenias/Eliminar/@row.ID_Resenia">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter] public string Titulo { get; set; }
+    public string Url = "/api/resenias";
+
+    private List<DondeSalimos.Shared.Modelos.Resenia> Resenias;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarResenias();
+    }
+
+    async Task CargarResenias()
+    {
+        Resenias = await Http.GetFromJsonAsync<List<DondeSalimos.Shared.Modelos.Resenia>>(Url);
+    }
+
+    public async Task filtro()
+    {
+        //Filtrar por 'Nombre comercio'
+        if (!string.IsNullOrEmpty(Titulo))
+        {
+            Resenias = await Http.GetFromJsonAsync<List<DondeSalimos.Shared.Modelos.Resenia>>($"{Url}/{Titulo}");
+        }
+        else
+        {
+            await CargarResenias();
+        }
+
+        StateHasChanged();
+    }
+}

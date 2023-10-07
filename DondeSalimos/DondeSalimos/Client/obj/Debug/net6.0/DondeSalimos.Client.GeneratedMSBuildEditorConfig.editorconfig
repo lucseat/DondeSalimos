@@ -1,0 +1,149 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = browser
+build_property.RootNamespace = DondeSalimos.Client
+build_property.RootNamespace = DondeSalimos.Client
+build_property.ProjectDir = C:\Users\nicoz\Downloads\Analista en Sistemas\DondeSalimos\DondeSalimos\Client\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\nicoz\Downloads\Analista en Sistemas\DondeSalimos\DondeSalimos\Client
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Clientes/Editar_Nuevo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50ZXNcRWRpdGFyX051ZXZvLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Clientes/Eliminar.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50ZXNcRWxpbWluYXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Clientes/Listado.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50ZXNcTGlzdGFkby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Comercios/Editar_Nuevo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaW9zXEVkaXRhcl9OdWV2by5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Comercios/Eliminar.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaW9zXEVsaW1pbmFyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Comercios/Listado.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaW9zXExpc3RhZG8ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Grupos/Editar_Nuevo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR3J1cG9zXEVkaXRhcl9OdWV2by5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Grupos/Eliminar.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR3J1cG9zXEVsaW1pbmFyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Grupos/Listado.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR3J1cG9zXExpc3RhZG8ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Novedades/Editar_Nuevo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm92ZWRhZGVzXEVkaXRhcl9OdWV2by5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Novedades/Eliminar.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm92ZWRhZGVzXEVsaW1pbmFyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Novedades/Listado.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm92ZWRhZGVzXExpc3RhZG8ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Pagos/Editar_Nuevo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFnb3NcRWRpdGFyX051ZXZvLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Pagos/Eliminar.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFnb3NcRWxpbWluYXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Pagos/Listado.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFnb3NcTGlzdGFkby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Publicidades/Editar_Nuevo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHVibGljaWRhZGVzXEVkaXRhcl9OdWV2by5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Publicidades/Eliminar.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHVibGljaWRhZGVzXEVsaW1pbmFyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Publicidades/Listado.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHVibGljaWRhZGVzXExpc3RhZG8ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Rerservas/Editar_Nuevo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVyc2VydmFzXEVkaXRhcl9OdWV2by5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Rerservas/Eliminar.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVyc2VydmFzXEVsaW1pbmFyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Rerservas/Listado.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVyc2VydmFzXExpc3RhZG8ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Resenias/Editar_Nuevo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVzZW5pYXNcRWRpdGFyX051ZXZvLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Resenias/Eliminar.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVzZW5pYXNcRWxpbWluYXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Resenias/Listado.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVzZW5pYXNcTGlzdGFkby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Usuarios/Editar_Nuevo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXN1YXJpb3NcRWRpdGFyX051ZXZvLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Usuarios/Eliminar.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXN1YXJpb3NcRWxpbWluYXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Pages/Usuarios/Listado.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXN1YXJpb3NcTGlzdGFkby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-yeigipchk9
+
+[C:/Users/nicoz/Downloads/Analista en Sistemas/DondeSalimos/DondeSalimos/Client/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-aesy4uvc7i

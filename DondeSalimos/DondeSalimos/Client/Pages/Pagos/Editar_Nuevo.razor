@@ -1,0 +1,82 @@
+﻿@page "/Pagos/Editar_Nuevo/"
+@page "/Pagos/Editar_Nuevo/{ID_Pago:int}"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<h3>@TituloPagina</h3>
+
+<EditForm Model="@Pago" OnValidSubmit="@Guardar">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <b>Comercio</b><br />
+        <div>
+            <select class="form-control" @bind="ComercioSeleccionado">
+                <option selected disabled value="-1"> Seleccione un comercio</option>
+                @foreach (var item in Comercios)
+                {
+                    <option value="@item.ID_Comercio">@item.Nombre</option>
+                }
+            </select>
+        </div>
+        <b>Estado</b><br />
+        <div>
+            <InputCheckbox @bind-Value="@Pago.Estado" />
+            <ValidationMessage For="@(() => Pago.Estado)" />
+        </div>
+        <b>Tipo</b><br />
+        <div>
+            <InputText @bind-Value="@Pago.Tipo" />
+            <ValidationMessage For="@(() => Pago.Tipo)" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-success"> Guardar </button>
+        <a class="btn btn-info" href="Publicidades/Listado/">Volver</a>
+    </div>
+    <br />
+    <ValidationSummary />
+</EditForm>
+
+@code {
+    [Parameter] public int ID_Pago { get; set; }
+    public string TituloPagina;
+    public string Url = "/api/pagos";
+    public int ComercioSeleccionado { get; set; }
+
+    DondeSalimos.Shared.Modelos.Pago Pago = new DondeSalimos.Shared.Modelos.Pago();
+    List<DondeSalimos.Shared.Modelos.Comercio> Comercios = new List<DondeSalimos.Shared.Modelos.Comercio>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Comercios = await Http.GetFromJsonAsync<List<DondeSalimos.Shared.Modelos.Comercio>>("/api/comercios");
+
+        if (ID_Pago > 0)
+        {
+            TituloPagina = "Editar publicidad";
+            Pago = await Http.GetFromJsonAsync<DondeSalimos.Shared.Modelos.Pago>($"{Url}/{ID_Pago}");
+            ComercioSeleccionado = Pago.ID_Comercio;
+        }
+        else
+        {
+            TituloPagina = "Nueva publicidad";
+            ComercioSeleccionado = Comercios.FirstOrDefault().ID_Comercio;
+        }
+    }
+
+    async Task Guardar()
+    {
+        Pago.ID_Comercio = ComercioSeleccionado;
+
+        if (ID_Pago > 0)
+        {
+            await Http.PutAsJsonAsync($"{Url}/{ID_Pago}", Pago);
+        }
+        else
+        {
+            await Http.PostAsJsonAsync(Url, Pago);
+        }
+
+        NavigationManager.NavigateTo("/Publicidades/Listado");
+    }
+}

@@ -1,0 +1,91 @@
+﻿@page "/Grupos/Listado"
+@inject HttpClient Http
+
+<h3>Listado de Grupos</h3>
+<form>
+    <div class="row">
+        <div class="col-md-5">
+            <b>Grupo</b><br />
+            <input type="text" class="form-control" placeholder="Nombre del grupo" @bind-value="Titulo" @bind-value:event="oninput" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            <button type="button" class="btn btn-primary" @onclick="filtro">Filtrar</button>
+            <a class="btn btn-info" href="Grupos/Editar_Nuevo/">Nuevo</a>
+        </div>
+    </div>
+    <br />
+</form>
+
+@if (Grupos == null)
+{
+    <text>Cargando..</text>
+}
+else if (Grupos.Count == 0)
+{
+    <text>No hay grupos en la base de datos</text>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Nombre de grupo</th>
+                <th scope="col">Cantidad de integrantes</th>
+                <th scope="col">Enlace de comunicación</th>
+                <th scope="col">Localización</th>
+                <th scope="col">Cliente</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Grupos)
+            {
+                <tr>
+                    <td>@row.NombreGrupo</td>
+                    <td>@row.CantIntegrantes</td>
+                    <td>@row.EnlaceComunicacion</td>
+                    <td>@row.Localizacion</td>
+                    <td>@row.Cliente.Nombre</td>
+                    <td>
+                        <a href="Grupos/Editar_Nuevo/@row.ID_Grupo">Editar</a> |
+                        <a href="Grupos/Eliminar/@row.ID_Grupo">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter] public string Titulo { get; set; }
+    public string Url = "/api/grupos";
+
+    private List<DondeSalimos.Shared.Modelos.Grupo> Grupos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarGrupos();
+    }
+
+    async Task CargarGrupos()
+    {
+        Grupos = await Http.GetFromJsonAsync<List<DondeSalimos.Shared.Modelos.Grupo>>(Url);
+    }
+
+    public async Task filtro()
+    {
+        //Filtrar por 'Nombre grupo'
+        if (!string.IsNullOrEmpty(Titulo))
+        {
+            Grupos = await Http.GetFromJsonAsync<List<DondeSalimos.Shared.Modelos.Grupo>>($"{Url}/{Titulo}");
+        }
+        else
+        {
+            await CargarGrupos();
+        }
+
+        StateHasChanged();
+    }
+}

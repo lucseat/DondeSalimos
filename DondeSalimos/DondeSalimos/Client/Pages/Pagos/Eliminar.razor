@@ -1,0 +1,45 @@
+﻿@page "/Pagos/Eliminar/{ID_Pago:int}"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<h3>Eliminar novedad</h3>
+<form>
+    <div class="row">
+        <div class="col-md-5">
+            <b>Comercio</b><br />
+            <input type="text" class="form-control" @bind-value="Pago.ID_Comercio" disabled="disabled" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3 alert alert-danger">
+            <h5>¿Esta seguro que desea eliminarlo?</h5>
+            <input type="hidden" @bind-value="Pago.ID_Pago" />
+            <button type="button" class="btn btn-danger" @onclick="borrar">Si</button>
+            <a class="btn btn-primary" href="Pagos/Listado">No</a>
+        </div>
+    </div>
+    <br />
+</form>
+
+@code {
+    [Parameter] public int ID_Pago { get; set; }
+    public string Url = "/api/pagos";
+
+    DondeSalimos.Shared.Modelos.Pago Pago = new DondeSalimos.Shared.Modelos.Pago();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (ID_Pago > 0)
+        {
+            Pago = await Http.GetFromJsonAsync<DondeSalimos.Shared.Modelos.Pago>($"{Url}/{ID_Pago}");
+        }
+    }
+
+    async Task borrar()
+    {
+        await Http.DeleteAsync($"{Url}/{ID_Pago}");
+
+        NavigationManager.NavigateTo("/Pagos/Listado");
+    }
+}

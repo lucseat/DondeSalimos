@@ -1,0 +1,133 @@
+﻿@page "/Comercios/Editar_Nuevo/"
+@page "/Comercios/Editar_Nuevo/{ID_Comercio:int}"
+@using System.Text.RegularExpressions;
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<h3>@TituloPagina</h3>
+
+<EditForm Model="@Comercio" OnValidSubmit="@Guardar">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <b>Nombre</b><br />
+        <div>
+            <InputText @bind-Value="@Comercio.Nombre" />
+            <ValidationMessage For="@(() => Comercio.Nombre)" />
+        </div>
+        <b>Género Musical</b><br />
+        <div>
+            <InputText @bind-Value="@Comercio.GeneroMusical" />
+        </div>
+        <b>Cantidad de Mesas</b><br />
+        <div>
+            <InputNumber @bind-Value="@Comercio.Mesas" />
+        </div>
+        <b>Tipo de documento</b><br />
+        <div>
+            <InputSelect @bind-Value="@Comercio.TipoDocumento">3
+                <option selected disabled value="-1"> Seleccione un tipo de documento</option>
+                <option value="CUIT">CUIT</option>
+                <option value="CUIL">CUIL</option>
+            </InputSelect>
+        </div>
+        <b>Nro. de Documento</b><br />
+        <div>
+            <InputText @bind-Value="@Comercio.NroDocumento" />
+            <ValidationMessage For="@(() => Comercio.NroDocumento)" />
+        </div>
+        <b>Email</b><br />
+        <div>
+            <InputText @bind-Value="@Comercio.Email" />
+            <ValidationMessage For="@(() => Comercio.Email)" />
+        </div>
+        <b>Telefono</b><br />
+        <div>
+            <InputText @bind-Value="@Comercio.Telefono" />
+            <ValidationMessage For="@(() => Comercio.Telefono)" />
+            @if (!string.IsNullOrEmpty(mensajeError))
+            {
+                <p class="text-danger">@mensajeError</p>
+            }
+        </div>
+        <b>Dirección</b><br />
+        <div>
+            <InputTextArea @bind-Value="@Comercio.Direccion" />
+            <ValidationMessage For="@(() => Comercio.Direccion)" />
+        </div>
+        <b>Usuario</b><br />
+        <div>
+            <select class="form-control" @bind="UsuarioSeleccionado">
+                <option selected disabled value="-1"> Seleccione una usuario</option>
+                @foreach (var item in Usuarios)
+                {
+                    <option value="@item.ID_Usuario">@item.NombreUsuario</option>
+                }
+            </select>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-success"> Guardar </button>
+        <a class="btn btn-info" href="Comercios/Listado/">Volver</a>
+    </div>
+    <br />
+    <ValidationSummary />
+</EditForm>
+
+@code {
+    [Parameter] public int ID_Comercio { get; set; }
+    public string TituloPagina;
+    public string Url = "/api/comercios";
+    private string mensajeError;
+    public int UsuarioSeleccionado { get; set; }
+
+    DondeSalimos.Shared.Modelos.Comercio Comercio = new DondeSalimos.Shared.Modelos.Comercio();
+    List<DondeSalimos.Shared.Modelos.Usuario> Usuarios = new List<DondeSalimos.Shared.Modelos.Usuario>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Usuarios = await Http.GetFromJsonAsync<List<DondeSalimos.Shared.Modelos.Usuario>>("/api/usuarios");
+
+        if (ID_Comercio > 0)
+        {
+            TituloPagina = "Editar comercio";
+            Comercio = await Http.GetFromJsonAsync<DondeSalimos.Shared.Modelos.Comercio>($"{Url}/{ID_Comercio}");
+            UsuarioSeleccionado = Comercio.ID_Usuario;
+        }
+        else
+        {
+            TituloPagina = "Nuevo comercio";
+            UsuarioSeleccionado = Usuarios.FirstOrDefault().ID_Usuario;
+        }
+    }
+
+    async Task Guardar()
+    {
+        if (!EsNumeroTelefonoValido(Comercio.Telefono))
+        {
+            mensajeError = "El número de teléfono no es válido.";
+
+            return; // Evita que el formulario se envíe si el número de teléfono no es válido
+        }
+
+        Comercio.ID_Usuario = UsuarioSeleccionado;
+
+        if (ID_Comercio > 0)
+        {
+            await Http.PutAsJsonAsync($"{Url}/{ID_Comercio}", Comercio);
+        }
+        else
+        {
+            await Http.PostAsJsonAsync(Url, Comercio);
+        }
+
+        NavigationManager.NavigateTo("/Comercios/Listado");
+    }
+
+    private bool EsNumeroTelefonoValido(string telefono)
+    {
+        // Expresión regular que permite solo dígitos numéricos y caracteres especiales comunes
+        string patron = @"^[0-9()+\- ]*$";
+        return Regex.IsMatch(telefono, patron);
+    }
+}

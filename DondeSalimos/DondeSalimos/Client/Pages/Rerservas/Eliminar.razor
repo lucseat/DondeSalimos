@@ -1,0 +1,45 @@
+﻿@page "/Reservas/Eliminar/{ID_Reserva:int}"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<h3>Eliminar reserva</h3>
+<form>
+    <div class="row">
+        <div class="col-md-5">
+            <b>Reserva</b><br />
+            <input type="text" class="form-control" @bind-value="Reserva.ID_Cliente" disabled="disabled" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3 alert alert-danger">
+            <h5>¿Esta seguro que desea eliminarlo?</h5>
+            <input type="hidden" @bind-value="Reserva.ID_Reserva" />
+            <button type="button" class="btn btn-danger" @onclick="borrar">Si</button>
+            <a class="btn btn-primary" href="Reservas/Listado">No</a>
+        </div>
+    </div>
+    <br />
+</form>
+
+@code {
+    [Parameter] public int ID_Reserva { get; set; }
+    public string Url = "/api/reservas";
+
+    DondeSalimos.Shared.Modelos.Reserva Reserva = new DondeSalimos.Shared.Modelos.Reserva();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (ID_Reserva > 0)
+        {
+            Reserva = await Http.GetFromJsonAsync<DondeSalimos.Shared.Modelos.Reserva>($"{Url}/{ID_Reserva}");
+        }
+    }
+
+    async Task borrar()
+    {
+        await Http.DeleteAsync($"{Url}/{ID_Reserva}");
+
+        NavigationManager.NavigateTo("/Reservas/Listado");
+    }
+}

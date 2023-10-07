@@ -1,0 +1,90 @@
+﻿@page "/Grupos/Editar_Nuevo/"
+@page "/Grupos/Editar_Nuevo/{ID_Grupo:int}"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<h3>@TituloPagina</h3>
+
+<EditForm Model="@Grupo" OnValidSubmit="@Guardar">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <b>Nombre de Grupo</b><br />
+        <div>
+            <InputText @bind-Value="@Grupo.NombreGrupo" />
+            <ValidationMessage For="@(() => Grupo.NombreGrupo)" />
+        </div>
+        <b>Cantidad de Integrantes</b><br />
+        <div>
+            <InputNumber @bind-Value="@Grupo.CantIntegrantes" />
+            <ValidationMessage For="@(() => Grupo.CantIntegrantes)" />
+        </div>
+        <b>Enlace de comunicación</b><br />
+        <div>
+            <InputText @bind-Value="@Grupo.EnlaceComunicacion" />
+        </div>
+        <b>Localización</b><br />
+        <div>
+            <InputNumber @bind-Value="@Grupo.Localizacion" />
+        </div>
+        <b>Cliente</b><br />
+        <div>
+            <select class="form-control" @bind="ClienteSeleccionado">
+                <option selected disabled value="-1"> Seleccione un cliente</option>
+                @foreach (var item in Clientes)
+                {
+                    <option value="@item.ID_Cliente">@item.Nombre</option>
+                }
+            </select>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-success"> Guardar </button>
+        <a class="btn btn-info" href="Grupos/Listado/">Volver</a>
+    </div>
+    <br />
+    <ValidationSummary />
+</EditForm>
+
+@code {
+    [Parameter] public int ID_Grupo { get; set; }
+    public string TituloPagina;
+    public string Url = "/api/grupos";
+    public int ClienteSeleccionado { get; set; }
+
+    DondeSalimos.Shared.Modelos.Grupo Grupo = new DondeSalimos.Shared.Modelos.Grupo();
+    List<DondeSalimos.Shared.Modelos.Cliente> Clientes = new List<DondeSalimos.Shared.Modelos.Cliente>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Clientes = await Http.GetFromJsonAsync<List<DondeSalimos.Shared.Modelos.Cliente>>("/api/clientes");
+
+        if (ID_Grupo > 0)
+        {
+            TituloPagina = "Editar grupo";
+            Grupo = await Http.GetFromJsonAsync<DondeSalimos.Shared.Modelos.Grupo>($"{Url}/{ID_Grupo}");
+            ClienteSeleccionado = Grupo.ID_Cliente;
+        }
+        else
+        {
+            TituloPagina = "Nuevo comercio";
+            ClienteSeleccionado = Clientes.FirstOrDefault().ID_Usuario;
+        }
+    }
+
+    async Task Guardar()
+    {
+        Grupo.ID_Cliente = ClienteSeleccionado;
+
+        if (ID_Grupo > 0)
+        {
+            await Http.PutAsJsonAsync($"{Url}/{ID_Grupo}", Grupo);
+        }
+        else
+        {
+            await Http.PostAsJsonAsync(Url, Grupo);
+        }
+
+        NavigationManager.NavigateTo("/Grupos/Listado");
+    }
+}

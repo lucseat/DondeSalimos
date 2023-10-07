@@ -1,0 +1,45 @@
+﻿@page "/Grupos/Eliminar/{ID_Grupo:int}"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<h3>Eliminar comercios</h3>
+<form>
+    <div class="row">
+        <div class="col-md-5">
+            <b>Grupo</b><br />
+            <input type="text" class="form-control" @bind-value="Grupo.NombreGrupo" disabled="disabled" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3 alert alert-danger">
+            <h5>¿Esta seguro que desea eliminarlo?</h5>
+            <input type="hidden" @bind-value="Grupo.ID_Grupo" />
+            <button type="button" class="btn btn-danger" @onclick="borrar">Si</button>
+            <a class="btn btn-primary" href="Grupos/Listado">No</a>
+        </div>
+    </div>
+    <br />
+</form>
+
+@code {
+    [Parameter] public int ID_Grupo { get; set; }
+    public string Url = "/api/grupos";
+
+    DondeSalimos.Shared.Modelos.Grupo Grupo = new DondeSalimos.Shared.Modelos.Grupo();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (ID_Grupo > 0)
+        {
+            Grupo = await Http.GetFromJsonAsync<DondeSalimos.Shared.Modelos.Grupo>($"{Url}/{ID_Grupo}");
+        }
+    }
+
+    async Task borrar()
+    {
+        await Http.DeleteAsync($"{Url}/{ID_Grupo}");
+
+        NavigationManager.NavigateTo("/Grupos/Listado");
+    }
+}

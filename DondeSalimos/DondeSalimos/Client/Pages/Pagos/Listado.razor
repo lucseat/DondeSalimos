@@ -1,0 +1,87 @@
+﻿@page "/Pagos/Listado"
+@inject HttpClient Http
+
+<h3>Listado de Pagos</h3>
+<form>
+    <div class="row">
+        <div class="col-md-5">
+            <b>Comercio</b><br />
+            <input type="text" class="form-control" placeholder="Nombre del comercio" @bind-value="Titulo" @bind-value:event="oninput" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            <button type="button" class="btn btn-primary" @onclick="filtro">Filtrar</button>
+            <a class="btn btn-info" href="Pagos/Editar_Nuevo/">Nuevo</a>
+        </div>
+    </div>
+    <br />
+</form>
+
+@if (Pagos == null)
+{
+    <text>Cargando..</text>
+}
+else if (Pagos.Count == 0)
+{
+    <text>No hay pagos en la base de datos</text>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Comercio</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Tipo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Pagos)
+            {
+                <tr>
+                    <td>@row.Comercio.Nombre</td>
+                    <td>@row.Estado</td>
+                    <td>@row.Tipo</td>
+                    <td>
+                        <a href="Pagos/Editar_Nuevo/@row.ID_Pago">Editar</a> |
+                        <a href="Pagos/Eliminar/@row.ID_Pago">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter] public string Titulo { get; set; }
+    public string Url = "/api/pagos";
+
+    private List<DondeSalimos.Shared.Modelos.Pago> Pagos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarPagos();
+    }
+
+    async Task CargarPagos()
+    {
+        Pagos = await Http.GetFromJsonAsync<List<DondeSalimos.Shared.Modelos.Pago>>(Url);
+    }
+
+    public async Task filtro()
+    {
+        //Filtrar por 'Nombre comercio'
+        if (!string.IsNullOrEmpty(Titulo))
+        {
+            Pagos = await Http.GetFromJsonAsync<List<DondeSalimos.Shared.Modelos.Pago>>($"{Url}/{Titulo}");
+        }
+        else
+        {
+            await CargarPagos();
+        }
+
+        StateHasChanged();
+    }
+}

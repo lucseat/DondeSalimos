@@ -1,0 +1,45 @@
+﻿@page "/Novedades/Eliminar/{ID_Novedad:int}"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<h3>Eliminar novedad</h3>
+<form>
+    <div class="row">
+        <div class="col-md-5">
+            <b>Novedad</b><br />
+            <input type="text" class="form-control" @bind-value="Novedad.ID_Novedad" disabled="disabled" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3 alert alert-danger">
+            <h5>¿Esta seguro que desea eliminarlo?</h5>
+            <input type="hidden" @bind-value="Novedad.ID_Novedad" />
+            <button type="button" class="btn btn-danger" @onclick="borrar">Si</button>
+            <a class="btn btn-primary" href="Novedades/Listado">No</a>
+        </div>
+    </div>
+    <br />
+</form>
+
+@code {
+    [Parameter] public int ID_Novedad { get; set; }
+    public string Url = "/api/novedades";
+
+    DondeSalimos.Shared.Modelos.Novedad Novedad = new DondeSalimos.Shared.Modelos.Novedad();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (ID_Novedad > 0)
+        {
+            Novedad = await Http.GetFromJsonAsync<DondeSalimos.Shared.Modelos.Novedad>($"{Url}/{ID_Novedad}");
+        }
+    }
+
+    async Task borrar()
+    {
+        await Http.DeleteAsync($"{Url}/{ID_Novedad}");
+
+        NavigationManager.NavigateTo("/Novedades/Listado");
+    }
+}

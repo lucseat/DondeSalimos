@@ -1,0 +1,88 @@
+﻿@page "/Usuarios/Listado"
+@inject HttpClient Http
+
+<h3>Listado de Usuarios</h3>
+<form>
+    <div class="row">
+        <div class="col-md-5">
+            <b>Usuario</b><br />
+            <input type="text" class="form-control" placeholder="Nombre del usuario" @bind-value="Titulo" @bind-value:event="oninput" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            <button type="button" class="btn btn-primary" @onclick="filtro">Filtrar</button>
+            <a class="btn btn-info" href="Usuarios/Editar_Nuevo/">Nuevo</a>
+        </div>
+    </div>
+    <br />
+</form>
+
+@if (Usuarios == null)
+{
+    <text>Cargando..</text>
+}
+else if (Usuarios.Count == 0)
+{
+    <text>No hay usuarios en la base de datos</text>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Usuario</th>
+                <th scope="col">Contraseña</th>
+                <th scope="col">Es administrador</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Usuarios)
+            {
+                <tr>
+                    <td>@row.NombreUsuario</td>
+                    <td>@row.Contrasenia</td>
+                    <td>@row.Administrador</td>
+                    <td>
+                        <a href="Usuarios/Editar_Nuevo/@row.ID_Usuario">Editar</a> |
+                        <a href="Usuarios/Eliminar/@row.ID_Usuario">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter] public string Titulo { get; set; }
+    public string Url = "/api/usuarios";
+
+    private List<DondeSalimos.Shared.Modelos.Usuario> Usuarios;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarUsuarios();
+    }
+
+    async Task CargarUsuarios()
+    {
+        Usuarios = await Http.GetFromJsonAsync<List<DondeSalimos.Shared.Modelos.Usuario>>(Url);
+    }
+
+    public async Task filtro()
+    {
+        //Filtrar por 'Usuario'
+        if (!string.IsNullOrEmpty(Titulo))
+        {
+            Usuarios = await Http.GetFromJsonAsync<List<DondeSalimos.Shared.Modelos.Usuario>>($"{Url}/{Titulo}");
+        }
+        else
+        {
+            await CargarUsuarios();
+        }
+
+        StateHasChanged();
+    }
+}

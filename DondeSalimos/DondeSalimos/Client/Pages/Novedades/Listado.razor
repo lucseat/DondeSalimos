@@ -1,0 +1,87 @@
+﻿@page "/Novedades/Listado"
+@inject HttpClient Http
+
+<h3>Listado de Novedades</h3>
+<form>
+    <div class="row">
+        <div class="col-md-5">
+            <b>Comercio</b><br />
+            <input type="text" class="form-control" placeholder="Nombre del comercio" @bind-value="Titulo" @bind-value:event="oninput" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            <button type="button" class="btn btn-primary" @onclick="filtro">Filtrar</button>
+            <a class="btn btn-info" href="Novedades/Editar_Nuevo/">Nuevo</a>
+        </div>
+    </div>
+    <br />
+</form>
+
+@if (Novedades == null)
+{
+    <text>Cargando..</text>
+}
+else if (Novedades.Count == 0)
+{
+    <text>No hay novedades en la base de datos</text>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Comercio</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Visualizaciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Novedades)
+            {
+                <tr>
+                    <td>@row.Comercio.Nombre</td>
+                    <td>@row.Descripcion</td>
+                    <td>@row.Visualizaciones</td>
+                    <td>
+                        <a href="Novedades/Editar_Nuevo/@row.ID_Novedad">Editar</a> |
+                        <a href="Novedades/Eliminar/@row.ID_Novedad">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter] public string Titulo { get; set; }
+    public string Url = "/api/novedades";
+
+    private List<DondeSalimos.Shared.Modelos.Novedad> Novedades;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarNovedades();
+    }
+
+    async Task CargarNovedades()
+    {
+        Novedades = await Http.GetFromJsonAsync<List<DondeSalimos.Shared.Modelos.Novedad>>(Url);
+    }
+
+    public async Task filtro()
+    {
+        //Filtrar por 'Nombre comercio'
+        if (!string.IsNullOrEmpty(Titulo))
+        {
+            Novedades = await Http.GetFromJsonAsync<List<DondeSalimos.Shared.Modelos.Novedad>>($"{Url}/{Titulo}");
+        }
+        else
+        {
+            await CargarNovedades();
+        }
+
+        StateHasChanged();
+    }
+}
